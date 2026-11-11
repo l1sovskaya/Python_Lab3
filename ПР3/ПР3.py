@@ -17,6 +17,7 @@ def add_record(baggage_dict):
             return
         
         items_count = int(input("Введіть кількість речей: "))
+        # Рекомендація: додати перевірку ваги на некоректні значення.
         weight = float(input("Введіть загальну вагу багажу (кг): "))
         
         if items_count < 0 or weight < 0:
