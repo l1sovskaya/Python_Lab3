@@ -17,6 +17,7 @@ def add_record(baggage_dict):
             return
         
         items_count = int(input("Введіть кількість речей: "))
+        # Рекомендація: додати перевірку ваги на некоректні значення.
         weight = float(input("Введіть загальну вагу багажу (кг): "))
         
         if items_count < 0 or weight < 0:
@@ -93,6 +94,35 @@ def solve_variant_task(baggage_dict):
     else:
         print("в) Неможливо обчислити, оскільки загальна кількість речей дорівнює нулю.")
 
+def find_baggage_by_number(baggage_dict):
+    """Пошук інформації про багаж за його номером."""
+
+    if not baggage_dict:
+        print("\nСловник порожній. Пошук неможливий.")
+        return
+
+    print("\n--- Пошук багажу за номером ---")
+
+    try:
+        baggage_id = int(input("Введіть номер багажу: "))
+
+        if baggage_id <= 0:
+            print("Помилка: номер багажу має бути додатним цілим числом.")
+            return
+
+        items_count, weight = baggage_dict[baggage_id]
+
+        print("\nБагаж знайдено!")
+        print(f"Номер багажу: {baggage_id}")
+        print(f"Кількість речей: {items_count} шт.")
+        print(f"Загальна вага: {weight:.2f} кг")
+
+    except ValueError:
+        print("Помилка: введіть цілий номер багажу.")
+
+    except KeyError:
+        print("Помилка: багаж із таким номером не знайдено.")
+
 def main():
     # початковий словник. ключ: номер багажу. значення: кортеж (кількість_речей, загальна_вага)
     # задано n = 10 згідно з варіантом.
@@ -116,9 +146,10 @@ def main():
         print("3. Видалити запис")
         print("4. Переглянути словник (відсортовано за ключами)")
         print("5. Виконати індивідуальне завдання (Варіант 20)")
+        print("6. Знайти багаж за номером")
         print("0. Вийти з програми")
-        
-        choice = input("Оберіть дію (0-5): ")
+
+        choice = input("Оберіть дію (0-6): ")
         
         if choice == '1':
             print_all_values(baggage_data)
@@ -130,6 +161,8 @@ def main():
             print_sorted_by_keys(baggage_data)
         elif choice == '5':
             solve_variant_task(baggage_data)
+        elif choice == '6':
+            find_baggage_by_number(baggage_data)
         elif choice == '0':
             print("Роботу завершено.")
             break
